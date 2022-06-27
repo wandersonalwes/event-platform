@@ -26,15 +26,15 @@ export const Subscriber = () => {
   };
   return (
     <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
-      <div className="w-full max-w-[1100px] flex justify-between items-center mx-auto mt-20">
-        <div className="max-w-[640px]">
+      <div className="w-full max-w-[1100px] flex flex-col md:flex-row justify-between items-center mx-auto mt-20 gap-8 px-5">
+        <div className="max-w-[640px] px-4 flex flex-col items-center md:items-start">
           <Logo />
-          <h1 className="mt-8 text-[2.5rem] leading-tight">
+          <h1 className="mt-8 text-[1.97rem] md:text-[2.5rem] leading-tight text-center md:text-start">
             Construa uma{" "}
             <strong className="text-blue-500">aplicação completa</strong>, do
             zero, com <strong className="text-blue-500">React</strong>
           </h1>
-          <p className="mt-4 text-gray-200 leading-relaxed">
+          <p className="mt-4 text-gray-200 leading-relaxed text-center md:text-start text-sm md:text-base">
             Em apenas uma semana você vai dominar na prática uma das tecnologias
             mais utilizadas e com alta demanda para acessar as melhores
             oportunidades do mercado.
