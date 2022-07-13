@@ -1,8 +1,9 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components";
 import { useCreateSubscriberMutation } from "../graphql/generated";
 import imgUrl from "../../src/assets/code-mockup.png";
+import { toast } from "react-toastify";
 
 export const Subscriber = () => {
   const navigate = useNavigate();
@@ -10,10 +11,15 @@ export const Subscriber = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [createSubscriber, { loading }] = useCreateSubscriberMutation();
+  const [createSubscriber, { loading, error }] = useCreateSubscriberMutation();
 
   const handleSubscribe = async (event: FormEvent) => {
     event.preventDefault();
+
+    if (!name || !email) {
+      toast.warning("Por favor, preencha todos os campos");
+      return;
+    }
 
     await createSubscriber({
       variables: {
@@ -24,6 +30,12 @@ export const Subscriber = () => {
 
     navigate("/event");
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Sua inscrição falhou! :(");
+    }
+  }, [error]);
   return (
     <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
       <div className="w-full max-w-[1100px] flex flex-col md:flex-row justify-between items-center mx-auto mt-20 gap-8 px-5">
@@ -72,7 +84,7 @@ export const Subscriber = () => {
               disabled={loading}
               className="bg-green-500 mt-4 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
             >
-              Garantir minha vaga
+              {loading ? "Carregando..." : "Garantir minha vaga"}
             </button>
           </form>
         </div>
